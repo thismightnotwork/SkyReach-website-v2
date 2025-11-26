@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - SkyReach Virtual Airline</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0ea5e9; --primary-dark: #0284c7; --bg-dark: #0f172a; --bg-card: #1e293b;
+      --text-primary: #f1f5f9; --text-secondary: #94a3b8;
+      --accent-gradient: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+      --border: rgba(148, 163, 184, 0.1); --error: #ef4444; --success: #22c55e;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-dark); min-height: 100vh; display: flex; flex-direction: column; }
+    .header { padding: 1.5rem 2rem; display: flex; justify-content: center; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo img { height: 45px; }
+    .logo-text { font-size: 1.5rem; font-weight: 700; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .signup-container { width: 100%; max-width: 480px; }
+    .signup-card { background: var(--bg-card); border-radius: 20px; padding: 2.5rem; border: 1px solid var(--border); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+    .signup-header { text-align: center; margin-bottom: 2rem; }
+    .signup-header h1 { font-size: 1.75rem; color: var(--text-primary); margin-bottom: 0.5rem; }
+    .signup-header p { color: var(--text-secondary); }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 0.5rem; font-weight: 500; }
+    .form-input { width: 100%; padding: 0.875rem 1rem; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary); font-size: 1rem; transition: all 0.3s; }
+    .form-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1); }
+    .form-input::placeholder { color: var(--text-secondary); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn { width: 100%; padding: 1rem; background: var(--accent-gradient); border: none; border-radius: 10px; color: white; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); }
+    .btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+    .message { text-align: center; padding: 0.75rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.875rem; }
+    .message.error { background: rgba(239, 68, 68, 0.1); color: var(--error); border: 1px solid rgba(239, 68, 68, 0.2); }
+    .message.success { background: rgba(34, 197, 94, 0.1); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.2); }
+    .footer-links { text-align: center; margin-top: 1.5rem; color: var(--text-secondary); }
+    .footer-links a { color: var(--primary); text-decoration: none; }
+    .footer-links a:hover { text-decoration: underline; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="SkyReach">
+      <span class="logo-text">SkyReach</span>
+    </a>
+  </header>
+  <main class="main">
+    <div class="signup-container">
+      <div class="signup-card">
+        <div class="signup-header">
+          <h1>Join SkyReach</h1>
+          <p>Create your pilot account</p>
+        </div>
+        <div id="message" class="message" style="display:none;"></div>
+        <form id="signupForm">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" class="form-input" placeholder="Your first name" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ivaoCID">IVAO CID</label>
+              <input type="text" id="ivaoCID" class="form-input" placeholder="e.g. 123456" required>
+            </div>
+            <div class="form-group">
+              <label for="vatsimVID">VATSIM VID</label>
+              <input type="text" id="vatsimVID" class="form-input" placeholder="e.g. 1234567" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-input" placeholder="Create a password" required>
+          </div>
+          <button type="submit" id="signupBtn" class="btn">Create Account</button>
+        </form>
+        <div class="footer-links">
+          <p>Already have an account? <a href="login.html">Sign in</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyA92I8ATCslzGoveL_LFKproCkI0clq5XE",
+      authDomain: "skyreach-login.firebaseapp.com",
+      projectId: "skyreach-login",
+      storageBucket: "skyreach-login.firebasestorage.app",
+      messagingSenderId: "531909303327",
+      appId: "1:531909303327:web:58f4b25a6b8023ef87c92a",
+      measurementId: "G-3XKSQ6W4PY"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const form = document.getElementById('signupForm');
+    const messageEl = document.getElementById('message');
+    const signupBtn = document.getElementById('signupBtn');
+    function showMessage(text, type) {
+      messageEl.textContent = text;
+      messageEl.className = 'message ' + type;
+      messageEl.style.display = 'block';
+    }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const firstName = document.getElementById('firstName').value.trim();
+      const ivaoCID = document.getElementById('ivaoCID').value.trim();
+      const vatsimVID = document.getElementById('vatsimVID').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!firstName || !ivaoCID || !vatsimVID || !email || !password) {
+        showMessage('Please fill in all fields', 'error');
+        return;
+      }
+      signupBtn.disabled = true;
+      signupBtn.textContent = 'Creating account...';
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        await setDoc(doc(db, 'users', user.uid), {
+          firstName, ivaoCID, vatsimVID, email, createdAt: new Date()
+        });
+        showMessage('Account created! Redirecting...', 'success');
+        setTimeout(() => window.location.href = 'login.html', 1500);
+      } catch (error) {
+        showMessage(error.message, 'error');
+        signupBtn.disabled = false;
+        signupBtn.textContent = 'Create Account';
+      }
+    });
+  </script>
+</body>
+</html>
