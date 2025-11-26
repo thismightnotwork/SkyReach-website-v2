@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SkyReach Virtual Airline</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0ea5e9;
+      --primary-dark: #0284c7;
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --accent-gradient: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+      --border: rgba(148, 163, 184, 0.1);
+      --error: #ef4444;
+      --success: #22c55e;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Header */
+    .header {
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo img { height: 45px; }
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    /* Main Content */
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+    }
+    .login-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 3rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .login-header h1 {
+      font-size: 1.75rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .login-header p {
+      color: var(--text-secondary);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .form-input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+    .form-input::placeholder { color: var(--text-secondary); }
+    .btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent-gradient);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+    }
+    .btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      margin-top: 1rem;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+    }
+    .message {
+      text-align: center;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+    }
+    .message.error {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--error);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+    .message.success {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+    .divider {
+      text-align: center;
+      margin: 1.5rem 0;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+    .footer-links {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .footer-links a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="SkyReach">
+      <span class="logo-text">SkyReach</span>
+    </a>
+  </header>
+
+  <main class="main">
+    <div class="login-container">
+      <div class="login-card">
+        <div class="login-header">
+          <h1>Welcome Back</h1>
+          <p>Sign in to access the members area</p>
+        </div>
+        <div id="message" class="message" style="display:none;"></div>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-input" placeholder="Enter your email" autocomplete="username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-input" placeholder="Enter your password" autocomplete="current-password" required>
+          </div>
+          <button type="submit" id="loginBtn" class="btn">Sign In</button>
+          <button type="button" onclick="window.location.href='reset-password.html'" class="btn btn-secondary">Forgot Password?</button>
+        </form>
+        <div class="footer-links">
+          <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, getIdTokenResult } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyA92I8ATCslzGoveL_LFKproCkI0clq5XE",
+      authDomain: "skyreach-login.firebaseapp.com",
+      projectId: "skyreach-login",
+      storageBucket: "skyreach-login.firebasestorage.app",
+      messagingSenderId: "531909303327",
+      appId: "1:531909303327:web:58f4b25a6b8023ef87c92a",
+      measurementId: "G-3XKSQ6W4PY"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const form = document.getElementById('loginForm');
+    const messageEl = document.getElementById('message');
+    const loginBtn = document.getElementById('loginBtn');
+    function showMessage(text, type) {
+      messageEl.textContent = text;
+      messageEl.className = 'message ' + type;
+      messageEl.style.display = 'block';
+    }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!email || !password) {
+        showMessage('Please fill in all fields', 'error');
+        return;
+      }
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Signing in...';
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const idTokenResult = await getIdTokenResult(userCredential.user);
+        localStorage.setItem('isAdmin', idTokenResult.claims.admin === true ? 'true' : 'false');
+        showMessage('Login successful! Redirecting...', 'success');
+        setTimeout(() => window.location.href = 'gallery.html', 1000);
+      } catch (error) {
+        showMessage(error.message, 'error');
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Sign In';
+      }
+    });
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const idTokenResult = await getIdTokenResult(user);
+        localStorage.setItem('isAdmin', idTokenResult.claims.admin === true ? 'true' : 'false');
+        window.location.href = 'gallery.html';
+      }
+    });
+  </script>
+</body>
+</html>
