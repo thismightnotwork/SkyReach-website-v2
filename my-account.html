@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account - SkyReach Virtual Airline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); min-height: 100vh; color: #e2e8f0; }
+    nav { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); padding: 1rem 2rem; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .logo img { height: 40px; }
+    .logo span { font-size: 1.25rem; font-weight: 700; background: linear-gradient(135deg, #0ea5e9, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: #94a3b8; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: #0ea5e9; }
+    .main-content { padding-top: 100px; max-width: 1200px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem; padding-bottom: 4rem; }
+    .page-header { text-align: center; margin-bottom: 3rem; }
+    .page-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #0ea5e9, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .page-header p { color: #94a3b8; }
+    .account-grid { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
+    .profile-card { background: rgba(30, 41, 59, 0.5); border-radius: 1rem; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); text-align: center; height: fit-content; }
+    .avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0ea5e9, #6366f1); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 3rem; color: white; }
+    .profile-card h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .profile-card .email { color: #94a3b8; margin-bottom: 1rem; font-size: 0.9rem; }
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; background: rgba(14, 165, 233, 0.2); color: #0ea5e9; }
+    .badge.admin { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    .stats-row { display: flex; justify-content: space-around; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); }
+    .stat-item { text-align: center; }
+    .stat-item .number { font-size: 1.5rem; font-weight: 700; color: #0ea5e9; }
+    .stat-item .label { font-size: 0.75rem; color: #94a3b8; }
+    .content-area { display: flex; flex-direction: column; gap: 2rem; }
+    .card { background: rgba(30, 41, 59, 0.5); border-radius: 1rem; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); }
+    .card h3 { font-size: 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card h3 i { color: #0ea5e9; }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.9rem; }
+    .form-group input, .form-group select { width: 100%; padding: 0.75rem 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.5); color: #e2e8f0; font-size: 1rem; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #0ea5e9; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn { padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; font-size: 1rem; }
+    .btn-primary { background: linear-gradient(135deg, #0ea5e9, #6366f1); color: white; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3); }
+    .btn-secondary { background: rgba(255,255,255,0.1); color: #e2e8f0; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+    .btn-danger { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    .btn-danger:hover { background: rgba(239, 68, 68, 0.3); }
+    @media (max-width: 768px) { .account-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } .nav-links { display: none; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo"><img src="assets/logo.png" alt="SkyReach"><span>SkyReach</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="members/live-flights.html">Live Flights</a>
+        <a href="members/events.html">Events</a>
+        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+  <main class="main-content">
+    <div class="page-header"><h1>My Account</h1><p>Manage your pilot profile and settings</p></div>
+    <div class="account-grid">
+      <div class="profile-card">
+        <div class="avatar" id="avatarInitial">P</div>
+        <h2 id="displayName">Pilot</h2>
+        <p class="email" id="userEmail">loading...</p>
+        <span class="badge" id="userRole">Pilot</span>
+        <div class="stats-row">
+          <div class="stat-item"><div class="number" id="flightCount">0</div><div class="label">Flights</div></div>
+          <div class="stat-item"><div class="number" id="hoursCount">0</div><div class="label">Hours</div></div>
+        </div>
+      </div>
+      <div class="content-area">
+        <div class="card">
+          <h3><i class="fas fa-user"></i> Profile Information</h3>
+          <form id="profileForm">
+            <div class="form-row">
+              <div class="form-group"><label>First Name</label><input type="text" id="firstName" placeholder="Your first name"></div>
+              <div class="form-group"><label>Last Name</label><input type="text" id="lastName" placeholder="Your last name"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>IVAO VID</label><input type="text" id="ivaoVid" placeholder="Your IVAO VID"></div>
+              <div class="form-group"><label>VATSIM CID</label><input type="text" id="vatsimCid" placeholder="Your VATSIM CID"></div>
+            </div>
+            <div class="form-group"><label>Home Airport (ICAO)</label><input type="text" id="homeAirport" placeholder="e.g., KJFK" maxlength="4"></div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Changes</button>
+          </form>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-lock"></i> Security</h3>
+          <p style="color: #94a3b8; margin-bottom: 1rem;">Manage your account security settings</p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="reset-password.html" class="btn btn-secondary"><i class="fas fa-key"></i> Change Password</a>
+            <button class="btn btn-danger" id="deleteAccountBtn"><i class="fas fa-trash"></i> Delete Account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+    const firebaseConfig = { apiKey: "AIzaSyA92I8ATCslzGoveL_LFKproCkI0clq5XE", authDomain: "skyreach-login.firebaseapp.com", projectId: "skyreach-login", storageBucket: "skyreach-login.firebasestorage.app", messagingSenderId: "349aborede793498", appId: "1:349793498:web:abc123" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = 'login.html'; return; }
+      document.getElementById('userEmail').textContent = user.email;
+      document.getElementById('avatarInitial').textContent = user.email.charAt(0).toUpperCase();
+      const tokenResult = await user.getIdTokenResult();
+      if (tokenResult.claims.admin) { document.getElementById('userRole').textContent = 'Admin'; document.getElementById('userRole').classList.add('admin'); }
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        document.getElementById('firstName').value = data.firstName || '';
+        document.getElementById('lastName').value = data.lastName || '';
+        document.getElementById('ivaoVid').value = data.ivaoVid || '';
+        document.getElementById('vatsimCid').value = data.vatsimCid || '';
+        document.getElementById('homeAirport').value = data.homeAirport || '';
+        document.getElementById('displayName').textContent = data.firstName ? `${data.firstName} ${data.lastName || ''}` : 'Pilot';
+        document.getElementById('flightCount').textContent = data.flightCount || '0';
+        document.getElementById('hoursCount').textContent = data.flightHours || '0';
+      }
+    });
+    document.getElementById('profileForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const user = auth.currentUser;
+      if (!user) return;
+      await setDoc(doc(db, 'users', user.uid), { firstName: document.getElementById('firstName').value, lastName: document.getElementById('lastName').value, ivaoVid: document.getElementById('ivaoVid').value, vatsimCid: document.getElementById('vatsimCid').value, homeAirport: document.getElementById('homeAirport').value.toUpperCase() }, { merge: true });
+      alert('Profile updated successfully!');
+    });
+    document.getElementById('logoutBtn').onclick = () => signOut(auth).then(() => window.location.href = 'login.html');
+  </script>
+</body>
+</html>
